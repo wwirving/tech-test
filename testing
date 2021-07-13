@@ -3,7 +3,7 @@ Question - I'd like to learn more about your views on testing software:
 Why do we test our software as engineers
 -> Testing creates code that is reusable and secure.
 -> Testing helps us adhere to SOLID principles in OOP.
--> As a result, our code is more scalable and modular.
+-> As a result, our code is more scalable, modular and of bet.
 -> It’s faster to implement testing at the beginning of development and a allow continuous deployment cycle after setting up than to deploy code that breaks
 -> Testing makes it easier to work as part of a larger team, ensuring best practices and type-equality are maintained throughout a code base.
 
