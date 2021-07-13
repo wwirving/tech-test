@@ -1,0 +1,28 @@
+const fs = require('fs');
+
+const isPrime = num => {
+    for(let i = 2; i < num; i++)
+      if(num % i === 0) return false;
+    return num > 1;
+  }
+
+const stream = fs.createWriteStream("fizzbuzz.txt", { 'flags': 'a'});
+
+stream.once('open', (fd) => {
+    for (let i=0; i <= 500; i++){
+        if (isPrime(i)){
+            stream.write('FiZZBUZZ++ \n')
+        } else if (i % 5 === 0 && i % 3 === 0){
+            stream.write('FIZZBUZZ \n')
+        } else if (i % 3=== 0){
+            stream.write('FIZZ \n')
+        } else if (i % 5 === 0){
+            stream.write('BUZZ \n')
+        } else {
+            stream.write(i.toString() + '\n');
+        }
+    }
+
+    stream.end();
+
+});
