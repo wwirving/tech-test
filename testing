@@ -1,0 +1,22 @@
+Question - I'd like to learn more about your views on testing software:
+
+Why do we test our software as engineers
+-> Testing creates code that is reusable and secure.
+-> Testing helps us adhere to SOLID principles in OOP.
+-> As a result, our code is more scalable and modular.
+-> It’s faster to implement testing at the beginning of development and a allow continuous deployment cycle after setting up than to deploy code that breaks
+-> Testing makes it easier to work as part of a larger team, ensuring best practices and type-equality are maintained throughout a code base.
+
+
+What best practices are there for testing software
+-> The three stages can be split into unit, integration and end to end
+-> Functions and classes should have a singular purpose which can be tested
+-> Negative tests should also be constructed (to test for unexpected input)
+-> New features should not modify existing and tested classes or functions, but should have separate and testable functionality that integrates with other units.
+
+
+Where you have applied those best practices
+-> Enzyme, Jest, Cypress and Junit are popular frameworks that I have used
+-> The best example in my portfolio was using a TDD approach towards creating a morse code translator. Each function in the application was created within TDD and therefore allowed stacking of functions inside the main script to carry out translation and output. The testing process made the development of the app much faster because I could be confident of the output of each of my functions, and encouraged a greater strictness in type-handling. 
+-> In our client project at Nology, we implemented pre-deployment testing using Firebase which picked up errors in the React code base when they were pushed to main and prevented merging. This encouraged us to follow best practices in development and gave us confidence in working through continuous integration with the client.
+-> Using JUnit, we were able to test the methods of a Controller and Repository in Java. Creating instances of each class and then testing them with mock parameters was a good way to understand the function of each and to check that each method gave the correct output type and information.
