@@ -1,0 +1,130 @@
+const Calculator = require('./calculator.js');
+
+test('returns 0 when given an empty string', () => {
+    const test = new Calculator("");
+    expect(test.value).toBe(0);
+  });
+
+test('A single number (type string) returns the value', () => {
+    const test = new Calculator("9");
+    expect(test.value).toBe(9);
+});
+
+test('A single number (type number) returns the value', () => {
+    const test = new Calculator(5);
+    expect(test.value).toBe(5);
+});
+
+test('Two numbers, comma delimited, returns the sum', () => {
+    const test = new Calculator("5,5");
+    expect(test.value).toBe(10);
+});
+
+test('Two numbers, newline delimited, returns the sum', () => {
+    const test = new Calculator("20\n5");
+    expect(test.value).toBe(25);
+});
+
+test('Three numbers, delimited either way (\n), returns the sum ', () => {
+    const test = new Calculator("20\n5\n7");
+    expect(test.value).toBe(32);
+});
+
+
+test('Three numbers, delimited either way (,), returns the sum ', () => {
+    const test = new Calculator("20,5,7");
+    expect(test.value).toBe(32);
+});
+
+test('Negative numbers throw an exception', () => {
+    const test = new Calculator("-5");
+    expect(test.value).toBe("Exception! Number too small");
+});
+
+test('Numbers greater than 1000 are ignored ', () => {
+    const test = new Calculator("5,1004,2");
+    expect(test.value).toBe(7);
+});
+
+test('A single char delimiter can be defined on the first line', () => {
+    const test = new Calculator("#20#5#7");
+    expect(test.value).toBe(32);
+});
+
+test('A multi char delimiter can be defined on the first line', () => {
+    const test = new Calculator("###20###5###7");
+    expect(test.value).toBe(32);
+});
+
+
+class Calculator {
+    constructor(input){
+        this.input = input;
+    }
+
+    get value(){
+        return this.calcValue();
+    }
+
+    calcValue() {
+        if (this.input.length === 0){
+            return 0;
+        }
+        if (!isNaN(this.input)){
+            return this.checkValid(parseInt(this.input));
+        } else if (isNaN(this.input)){
+            if (this.input.indexOf(',') > -1){
+                let total = 0;
+                const splitArr = this.input.split(',');
+                const cleanArr = splitArr.map((number)=>{
+                    return this.checkValid(number);
+                })
+                for (let i = 0; i < cleanArr.length; i++){
+                    total += parseInt(cleanArr[i]);
+
+                }
+                return total;
+            } else if (this.input.indexOf('\n') > -1){
+                let total = 0;
+                const splitArr = this.input.split('\n');
+                const cleanArr = splitArr.map((number)=>{
+                    return this.checkValid(number);
+                })
+                for (let i = 0; i < cleanArr.length; i++){
+                    total += parseInt(cleanArr[i]);
+
+                }
+                return total;
+            } else if (this.input.indexOf(this.checkDelimiter(this.input)) > -1){
+                let total = 0;
+                const splitArr = this.input.split(this.checkDelimiter(this.input));
+                splitArr.shift();
+                const cleanArr = splitArr.map((number)=>{
+                    return this.checkValid(number);
+                })
+                for (let i = 0; i < cleanArr.length; i++){
+                    total += parseInt(cleanArr[i]);
+
+                }
+                return total;
+            }
+        }
+    }
+    checkValid(testInput){
+        if (testInput < 0){
+            return "Exception! Number too small"
+        } else if (testInput > 1000){
+            return 0;
+        } else {
+            return parseInt(testInput, 10);
+        }
+    }
+    checkDelimiter(inputString){
+        let firstNumber = inputString.search(/\d/);
+        let delimiter = inputString.slice(0,firstNumber);
+        return delimiter;
+    }
+
+}
+
+module.exports = Calculator;
